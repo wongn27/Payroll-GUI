@@ -5,8 +5,59 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PayrollGUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Hwk4-PayrollGUI-v1 - Natalie Wong" Height="671.363" Width="793.25">
     <Grid>
-        
+        <Label Content="Department Filename" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBoxDepartmentFilename" Height="27" Margin="140,29,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Button x:Name="buttonOpenDepartmentJSONFile" Content="Open Department JSON File" HorizontalAlignment="Left" Margin="10,61,0,0" VerticalAlignment="Top" Width="200" Height="37" Click="buttonOpenDepartmentJSONFile_Click"/>
+        <Label Content="Department Name" HorizontalAlignment="Left" Margin="10,119,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBoxDepartmentName" Height="26" Margin="127,118,10,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.552"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+        <Label Content="Total Worker Hours" HorizontalAlignment="Left" Margin="10,159,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.697,0.567"/>
+        <Label Content="Total Worker Pay" HorizontalAlignment="Left" Margin="10,194,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.303,0.5"/>
+        <TextBox x:Name="textBoxTotalWorkerHours" HorizontalAlignment="Left" Height="23" Margin="127,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="99"/>
+        <TextBox x:Name="textBoxTotalWorkerPay" HorizontalAlignment="Left" Height="22" Margin="127,198,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="99"/>
+        <Label Content="Workers" HorizontalAlignment="Left" Margin="10,238,0,0" VerticalAlignment="Top"/>
+        <Label Content="Shifts" HorizontalAlignment="Left" Margin="312,238,0,0" VerticalAlignment="Top"/>
+        <ListView x:Name="listViewWorkers" HorizontalAlignment="Left" Height="182" Margin="10,264,0,0" VerticalAlignment="Top" Width="268">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Header="Pay Rate" DisplayMemberBinding="{Binding PayRate}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView x:Name="listViewShifts" Height="182" Margin="312,264,10,0" VerticalAlignment="Top">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Worker Id" DisplayMemberBinding="{Binding WorkerID}"/>
+                    <GridViewColumn Header="Hours Worked" DisplayMemberBinding="{Binding HoursWorked}"/>
+                    <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label Content="Target Worker Id" HorizontalAlignment="Left" Margin="10,470,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBoxTargetWorkerId" HorizontalAlignment="Left" Height="26" Margin="127,470,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
+        <Button x:Name="buttonFindWorker" Content="Find Worker" HorizontalAlignment="Left" Margin="127,514,0,0" VerticalAlignment="Top" Width="151" Height="30"/>
+        <Label Content="Worker Name" HorizontalAlignment="Left" Margin="313,470,0,0" VerticalAlignment="Top"/>
+        <Label Content="Worker Id" HorizontalAlignment="Left" Margin="314,504,0,0" VerticalAlignment="Top"/>
+        <Label Content="Worker Pay Rate" HorizontalAlignment="Left" Margin="314,536,0,0" VerticalAlignment="Top"/>
+        <Label Content="Worker Hours" HorizontalAlignment="Left" Margin="314,567,0,0" VerticalAlignment="Top"/>
+        <Label Content="Worker Pay" HorizontalAlignment="Left" Margin="314,598,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBoxWorkerName" Height="23" Margin="427,473,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBoxWorkerId" Height="22" Margin="427,508,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBoxWorkerPayRate" Height="22" Margin="427,540,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBoxWorkerHours" Height="22" Margin="427,571,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBoxWorkerPay" Height="22" Margin="427,602,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
     </Grid>
 </Window>
