@@ -33,8 +33,16 @@ namespace PayrollGUI
 
         private void buttonOpenDepartmentJSONFile_Click(object sender, RoutedEventArgs e)
         {
+            textBoxDepartmentFilename.IsReadOnly = true;
+            textBoxDepartmentName.IsReadOnly = true;
+            textBoxTotalWorkerHours.IsReadOnly = true;
+            textBoxTotalWorkerPay.IsReadOnly = true;
+
             // Create OpenFileDialog
             var openFileDialog = new OpenFileDialog();
+            openFileDialog.Title = "Open Department From JSON";
+            openFileDialog.InitialDirectory = @"C:\Users\wongn\source\repos\Payroll\PayrollTesting\bin\Debug";
+            openFileDialog.Filter = "JSON files (*.json)|*.json";
             var result = openFileDialog.ShowDialog();
 
             if (result.HasValue && result.Value)
@@ -43,11 +51,22 @@ namespace PayrollGUI
                 textBoxDepartmentName.Text = System.IO.File.ReadAllText(openFileDialog.FileName);
             }
 
-            string fileName = textBoxDepartmentFilename.Text;
-            department = DeserializeDepartmentJSON(fileName);
+            try
+            {
+                string fileName = textBoxDepartmentFilename.Text;
+                department = DeserializeDepartmentJSON(fileName);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine($"Error: {exception.Message}");
+            }
 
             string departmentName = department.Name;
             textBoxDepartmentName.Text = departmentName;
+
+            double totalWorkerHours = department.CalculateTotalHoursWorked();
+            textBoxTotalWorkerHours.Text = Convert.ToString(totalWorkerHours);
+
         }
 
         /// <summary>
@@ -67,6 +86,4 @@ namespace PayrollGUI
             return department;
         }
     }
-
-    
 }
