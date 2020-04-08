@@ -67,6 +67,8 @@ namespace PayrollGUI
             double totalWorkerHours = department.CalculateTotalHoursWorked();
             textBoxTotalWorkerHours.Text = Convert.ToString(totalWorkerHours);
 
+            double totalWorkerPay = department.CalculateTotalPay();
+            textBoxTotalWorkerPay.Text = Convert.ToString(totalWorkerPay);
         }
 
         /// <summary>
