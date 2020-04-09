@@ -69,6 +69,29 @@ namespace PayrollGUI
 
             double totalWorkerPay = department.CalculateTotalPay();
             textBoxTotalWorkerPay.Text = Convert.ToString(totalWorkerPay);
+
+            foreach (Worker worker in department.Workers)
+            {
+                string name = worker.Name;
+                int Id = worker.Id;
+                double payRate = worker.PayRate;
+
+                listViewWorkers.Items.Add(worker);
+            }
+
+            foreach (Shift shift in department.Shifts)
+            {
+                int workerId = shift.WorkerID;
+                double hoursWorked = shift.HoursWorked;
+                DateTime date = shift.Date;
+
+                listViewShifts.Items.Add(shift);
+            }
+        }
+
+        private void buttonFindWorker_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         /// <summary>

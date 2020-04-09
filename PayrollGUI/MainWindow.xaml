@@ -47,7 +47,7 @@
         </ListView>
         <Label Content="Target Worker Id" HorizontalAlignment="Left" Margin="10,470,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="textBoxTargetWorkerId" HorizontalAlignment="Left" Height="26" Margin="127,470,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="151"/>
-        <Button x:Name="buttonFindWorker" Content="Find Worker" HorizontalAlignment="Left" Margin="127,514,0,0" VerticalAlignment="Top" Width="151" Height="30"/>
+        <Button x:Name="buttonFindWorker" Content="Find Worker" HorizontalAlignment="Left" Margin="127,514,0,0" VerticalAlignment="Top" Width="151" Height="30" Click="buttonFindWorker_Click"/>
         <Label Content="Worker Name" HorizontalAlignment="Left" Margin="313,470,0,0" VerticalAlignment="Top"/>
         <Label Content="Worker Id" HorizontalAlignment="Left" Margin="314,504,0,0" VerticalAlignment="Top"/>
         <Label Content="Worker Pay Rate" HorizontalAlignment="Left" Margin="314,536,0,0" VerticalAlignment="Top"/>
