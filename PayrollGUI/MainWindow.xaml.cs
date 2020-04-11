@@ -41,7 +41,7 @@ namespace PayrollGUI
             // Create OpenFileDialog
             var openFileDialog = new OpenFileDialog();
             openFileDialog.Title = "Open Department From JSON";
-            openFileDialog.InitialDirectory = @"C:\Users\wongn\source\repos\Payroll\PayrollTesting\bin\Debug";
+            openFileDialog.InitialDirectory = Environment.CurrentDirectory;
             openFileDialog.Filter = "JSON files (*.json)|*.json";
             var result = openFileDialog.ShowDialog();
 
@@ -55,43 +55,46 @@ namespace PayrollGUI
             {
                 string fileName = textBoxDepartmentFilename.Text;
                 department = DeserializeDepartmentJSON(fileName);
+
+                string departmentName = department.Name;
+                textBoxDepartmentName.Text = departmentName;
+
+                double totalWorkerHours = department.CalculateTotalHoursWorked();
+                textBoxTotalWorkerHours.Text = totalWorkerHours.ToString();
+
+                double totalWorkerPay = department.CalculateTotalPay();
+                textBoxTotalWorkerPay.Text = totalWorkerPay.ToString();
             }
             catch (Exception exception)
             {
                 Console.WriteLine($"Error: {exception.Message}");
             }
 
-            string departmentName = department.Name;
-            textBoxDepartmentName.Text = departmentName;
-
-            double totalWorkerHours = department.CalculateTotalHoursWorked();
-            textBoxTotalWorkerHours.Text = Convert.ToString(totalWorkerHours);
-
-            double totalWorkerPay = department.CalculateTotalPay();
-            textBoxTotalWorkerPay.Text = Convert.ToString(totalWorkerPay);
-
             foreach (Worker worker in department.Workers)
             {
-                string name = worker.Name;
-                int Id = worker.Id;
-                double payRate = worker.PayRate;
-
                 listViewWorkers.Items.Add(worker);
             }
 
             foreach (Shift shift in department.Shifts)
             {
-                int workerId = shift.WorkerID;
-                double hoursWorked = shift.HoursWorked;
-                DateTime date = shift.Date;
-
                 listViewShifts.Items.Add(shift);
             }
         }
 
         private void buttonFindWorker_Click(object sender, RoutedEventArgs e)
         {
+            int targetWorkerId = Int32.Parse(textBoxTargetWorkerId.Text);
 
+            Worker worker = department.FindWorker(targetWorkerId);
+
+            if (null == worker)
+            {
+                MessageBox.Show($"Could not find worker with Id {targetWorkerId}");
+            }
+
+            textBoxWorkerName.Text = worker.Name;
+            textBoxWorkerId.Text = worker.Id.ToString();
+            textBoxWorkerPayRate.Text = worker.PayRate.ToString();
         }
 
         /// <summary>
