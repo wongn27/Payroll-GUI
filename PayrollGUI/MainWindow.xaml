@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PayrollGUI"
         mc:Ignorable="d"
         Title="Hwk4-PayrollGUI-v1 - Natalie Wong" Height="671.363" Width="793.25">
-    <Grid>
+    <Grid x:Name="windowGrid">
         <Label Content="Department Filename" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="textBoxDepartmentFilename" Height="27" Margin="140,29,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <Button x:Name="buttonOpenDepartmentJSONFile" Content="Open Department JSON File" HorizontalAlignment="Left" Margin="10,61,0,0" VerticalAlignment="Top" Width="200" Height="37" Click="buttonOpenDepartmentJSONFile_Click"/>

@@ -33,16 +33,14 @@ namespace PayrollGUI
 
         private void buttonOpenDepartmentJSONFile_Click(object sender, RoutedEventArgs e)
         {
-            textBoxDepartmentFilename.IsReadOnly = true;
-            textBoxDepartmentName.IsReadOnly = true;
-            textBoxTotalWorkerHours.IsReadOnly = true;
-            textBoxTotalWorkerPay.IsReadOnly = true;
-
             // Create OpenFileDialog
-            var openFileDialog = new OpenFileDialog();
-            openFileDialog.Title = "Open Department From JSON";
-            openFileDialog.InitialDirectory = Environment.CurrentDirectory;
-            openFileDialog.Filter = "JSON files (*.json)|*.json";
+            var openFileDialog = new OpenFileDialog
+            {
+                Title = "Open Department From JSON",
+                InitialDirectory = Environment.CurrentDirectory,
+                Filter = "JSON files (*.json)|*.json"
+            };
+
             var result = openFileDialog.ShowDialog();
 
             if (result.HasValue && result.Value)
@@ -53,17 +51,16 @@ namespace PayrollGUI
 
             try
             {
+                textBoxDepartmentFilename.IsReadOnly = true;
+
                 string fileName = textBoxDepartmentFilename.Text;
                 department = DeserializeDepartmentJSON(fileName);
 
-                string departmentName = department.Name;
-                textBoxDepartmentName.Text = departmentName;
+                PopulateDepartmentAndTotalTextBoxes();
 
-                double totalWorkerHours = department.CalculateTotalHoursWorked();
-                textBoxTotalWorkerHours.Text = totalWorkerHours.ToString();
+                textBoxTargetWorkerId.Clear();
 
-                double totalWorkerPay = department.CalculateTotalPay();
-                textBoxTotalWorkerPay.Text = totalWorkerPay.ToString();
+                ClearWorkerTextBoxes(windowGrid, "textBoxWorker");
             }
             catch (Exception exception)
             {
@@ -89,12 +86,12 @@ namespace PayrollGUI
 
             if (null == worker)
             {
-                MessageBox.Show($"Could not find worker with Id {targetWorkerId}");
+                ClearWorkerTextBoxes(windowGrid, "textBoxWorker");
             }
-
-            textBoxWorkerName.Text = worker.Name;
-            textBoxWorkerId.Text = worker.Id.ToString();
-            textBoxWorkerPayRate.Text = worker.PayRate.ToString();
+            else
+            {
+                PopulateWorkerTextBoxes(worker, targetWorkerId);
+            }
         }
 
         /// <summary>
@@ -112,6 +109,40 @@ namespace PayrollGUI
             reader.Close();
 
             return department;
+        }
+
+        public void ClearWorkerTextBoxes(Grid grid, string startsWith)
+        {
+            foreach (System.Windows.Controls.Control control in windowGrid.Children)
+            {
+                if (control.Name.StartsWith(startsWith))
+                {
+                    var textbox = (TextBox)control;
+                    textbox.Clear();
+                }
+            }
+        }
+
+        public void PopulateTextBox(string textBoxString, TextBox textBox)
+        {
+            textBox.Text = textBoxString;
+            textBox.IsReadOnly = true;
+        }
+
+        public void PopulateDepartmentAndTotalTextBoxes()
+        {
+            PopulateTextBox(department.Name, textBoxDepartmentName);
+            PopulateTextBox(department.CalculateTotalHoursWorked().ToString(), textBoxTotalWorkerHours);
+            PopulateTextBox(department.CalculateTotalPay().ToString(), textBoxTotalWorkerPay);
+        }
+
+        public void PopulateWorkerTextBoxes(Worker worker, int targetWorkerId)
+        {
+            PopulateTextBox(worker.Name, textBoxWorkerName);
+            PopulateTextBox(worker.Id.ToString(), textBoxWorkerId);
+            PopulateTextBox(worker.PayRate.ToString(), textBoxWorkerPayRate);
+            PopulateTextBox(department.CalculateTotalWorkerHours(targetWorkerId).ToString(), textBoxWorkerHours);
+            PopulateTextBox(department.CalculatePay(targetWorkerId).ToString(), textBoxWorkerPay);
         }
     }
 }
