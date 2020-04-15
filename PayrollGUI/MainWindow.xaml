@@ -41,7 +41,7 @@
                 <GridView>
                     <GridViewColumn Header="Worker Id" DisplayMemberBinding="{Binding WorkerID}"/>
                     <GridViewColumn Header="Hours Worked" DisplayMemberBinding="{Binding HoursWorked}"/>
-                    <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date}"/>
+                    <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date, StringFormat='M/d/yyyy'}"/>
                 </GridView>
             </ListView.View>
         </ListView>
